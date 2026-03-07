@@ -28,7 +28,7 @@ const creatLabels = (arr) => {
             bg: "bg-gray-100"
         }
         return `
-         <button class="${style.text} ${style.bg} text-sm py-0.5 px-2 rounded-full space-y-2
+         <button class="${style.text} ${style.bg} text-sm uppercase  py-0.5 px-2 rounded-full space-y-2
          ">
             <i class="fa-solid ${style.icon}"></i> ${elm}
         </button>
@@ -37,6 +37,7 @@ const creatLabels = (arr) => {
 })
 return creatLabBtn.join(" ")
 }
+
 
 const singleIssue = (id) => {
     const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`
@@ -72,11 +73,13 @@ const creatCard = (cards) => {
             div.classList.add("border-t-5", "border-purple-500")
         }
         div.classList.add("bg-white", "rounded-lg", "shadow-md")
+        
+
         div.innerHTML = `
         <div class="p-4 space-y-2.5 ">
             <div class="flex justify-between items-center">
             <img src="./assets/Open-Status.png" alt="">
-            <button id="priority" class="py-1 w-20 bg-red-100 text-sm uppercase rounded-full font-medium">${card.priority}</button>
+            <button id="priority" class="py-1 w-20  text-sm uppercase rounded-full font-medium">${card.priority}</button>
         </div>
         <h1 class=" font-semibold">${card.title}</h1>
         <p class="text-sm text-[#64748B]">${card.description}</p>
