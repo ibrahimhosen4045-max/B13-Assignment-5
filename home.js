@@ -17,8 +17,8 @@ const creatLabels = (arr) => {
         },
         documentation: {
             icon: "fa-star",
-            text: "text-green-500",
-            bg: "bg-green-100"
+            text: "text-blue-500",
+            bg: "bg-blue-100"
         }
     }
     const creatLabBtn = arr.map((elm) => {
@@ -28,7 +28,8 @@ const creatLabels = (arr) => {
             bg: "bg-gray-100"
         }
         return `
-         <button class="${style.text} ${style.bg} py-0.5 px-2 rounded-full">
+         <button class="${style.text} ${style.bg} text-sm py-0.5 px-2 rounded-full space-y-2
+         ">
             <i class="fa-solid ${style.icon}"></i> ${elm}
         </button>
         `
@@ -79,14 +80,14 @@ const creatCard = (cards) => {
         </div>
         <h1 class=" font-semibold">${card.title}</h1>
         <p class="text-sm text-[#64748B]">${card.description}</p>
-        <div>
+        <div class="">
             ${creatLabels(card.labels)}
         </div>
         </div>
         <hr class="text-gray-300 ">
         <div class=" p-4 text-[#64748B]">
-            <p>#1by john_doe</p>
-            <p>1/15/2024</p>
+            <p class="">#1by ${card.author}</p>
+            <p class="text-sm">${card.updatedAt}</p>
         </div>
         `
         div.addEventListener("click", ()=> {
