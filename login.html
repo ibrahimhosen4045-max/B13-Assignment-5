@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Github Issues Tracker</title>
+    <link rel="shortcut icon" href="./assets/github-logo.png" type="image/x-icon">
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Germania+One&family=Griffy&family=Hind+Siliguri:wght@300;400;500;600;700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nova+Square&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Press+Start+2P&family=Quicksand:wght@300..700&family=Story+Script&family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+
+<style>
+    *{
+        font-family: "Geist", sans-serif;
+    }
+</style>
+</head>
+<body class="w-screen h-screen bg-gray-100 flex items-center justify-center">
+    <div class=" bg-white p-8 rounded-lg shadow-lg w-[375px] sm:w-[520px]">
+        <div class="flex flex-col items-center gap-1">
+            <img src="./assets/github-logo.png" alt="">
+            <h1 class="text-2xl font-semibold pt-5">GitHub Issues Tracker</h1>
+            <p class="text-[#64748B]">Sign in to manage your issues</p>
+        </div>
+        <div>
+            <fieldset class="fieldset border-none rounded-box  border p-4">
+
+            <label class="text-[16px]  font-semibold">Username</label>
+            <input id="input-user" class="w-full py-2.5 px-3 rounded-md text-[16px] border-gray-200" type="text" class="input" placeholder="Enter Username" />
+            <p class="text-primary text-sm">Default: admin</p>
+
+            <label class="text-[16px] pt-2.5 font-semibold">Password</label>
+            <input maxlength="8" id="input-pass" class="w-full py-2.5 px-3 rounded-md text-[16px] border-gray-200" type="password" class="input" placeholder="Enter Password" />
+            <p class="text-primary text-sm">Default: admin123</p>
+
+            <button id="login-button" class="btn btn-primary mt-4 text-[16px] py-5.5">Sign In</button>
+            </fieldset>
+        </div>
+        <div class="flex items-center gap-3 my-6">
+            <div class="h-px bg-gray-300 flex-1"></div>
+            <span class="text-gray-500 text-sm">OR</span>
+            <div class="h-px bg-gray-300 flex-1"></div>
+        </div>
+        <div>
+            <p class="text-sm text-[#64748B] text-center py-2">Demo Credentials:</p>
+            <div class="text-center py-6 bg-gray-100 rounded-lg">
+                <h1><span class="font-bold">Username:</span> admin</h1>
+                <h1><span class="font-bold">Password:</span> admin123</h1>
+            </div>
+        </div>
+    </div>
+    <script src="./login.js"></script>
+</body>
+</html>
