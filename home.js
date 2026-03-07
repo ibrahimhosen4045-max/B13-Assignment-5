@@ -62,10 +62,28 @@ allIssuesCard()
 const creatCard = (cards) => {
     
      const allCard = document.getElementById("all-card")
+     
      allCard.innerHTML = "";
 
      cards.forEach(card => {
+        let priorityClass = "";
+        if(card.priority === "high"){
+            priorityClass = "text-red-500 bg-red-100"
+        } else if (card.priority === "medium"){
+            priorityClass = "text-amber-600 bg-amber-100"
+        } else if (card.priority === "low"){
+            priorityClass = "text-gray-500 bg-gray-100"
+        }
+
+        let openCloseImg = "";
+        if(card.status === "open"){
+            openCloseImg = "Open-Status.png"
+        } else if (card.status === "closed"){
+            openCloseImg = "Closed- Status .png"
+        }
+
         const div = document.createElement("div")
+
         if(card.status === "open"){
             div.classList.add("border-t-5", "border-green-500")
         } 
@@ -78,8 +96,8 @@ const creatCard = (cards) => {
         div.innerHTML = `
         <div class="p-4 space-y-2.5 ">
             <div class="flex justify-between items-center">
-            <img src="./assets/Open-Status.png" alt="">
-            <button id="priority" class="py-1 w-20  text-sm uppercase rounded-full font-medium">${card.priority}</button>
+            <img src="./assets/${openCloseImg}" alt="">
+            <button id="priority" class="py-1 w-20 ${priorityClass}  text-sm uppercase rounded-full font-medium">${card.priority}</button>
         </div>
         <h1 class=" font-semibold">${card.title}</h1>
         <p class="text-sm text-[#64748B]">${card.description}</p>
