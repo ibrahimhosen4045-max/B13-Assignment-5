@@ -10,7 +10,7 @@ const closedBtn = document.getElementById("close-card-btn")
 const spiner = document.getElementById("spiner")
 
 const managSpiner = (spin) => {
-    if (spin == true){
+    if (spin === true){
         spiner.classList.remove("hidden")
         allCards.classList.add("hidden")
     } else {
@@ -26,9 +26,12 @@ const count = () => {
 
 let colorBtn = ["btn-primary", "text-white"]
 allBtn.classList.add(...colorBtn)
+
+
 const toggoling = (id) => {
     managSpiner(true)
-    if(id === "all-card-btn"){
+    setTimeout(()=>{
+        if(id === "all-card-btn"){
         creatCard(allIssues)
         OpenBtn.classList.remove(...colorBtn)
         closedBtn.classList.remove(...colorBtn)
@@ -48,6 +51,7 @@ const toggoling = (id) => {
         OpenBtn.classList.remove(...colorBtn)
         closedBtn.classList.add(...colorBtn)
     }
+    }, 200)
 }
 
 
@@ -160,7 +164,9 @@ const allIssuesCard = () => {
         .then((res) => res.json())
         .then((data) => {
             allIssues = data.data
-            creatCard(data.data)
+            setTimeout(()=>{
+                creatCard(data.data)
+            },1000)
         })
         
 }
