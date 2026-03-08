@@ -1,3 +1,56 @@
+let allIssues = [];
+
+const allCards = document.getElementById("all-card");
+const cardCount = document.getElementById("card-count")
+
+const allBtn = document.getElementById("all-card-btn")
+const OpenBtn = document.getElementById("Open-card-btn")
+const closedBtn = document.getElementById("close-card-btn")
+
+const spiner = document.getElementById("spiner")
+
+const managSpiner = (spin) => {
+    if (spin == true){
+        spiner.classList.remove("hidden")
+        allCards.classList.add("hidden")
+    } else {
+        spiner.classList.add("hidden")
+        allCards.classList.remove("hidden")
+    }
+}
+
+
+const count = () => {
+    cardCount.innerText = allCards.children.length
+}
+
+let colorBtn = ["btn-primary", "text-white"]
+allBtn.classList.add(...colorBtn)
+const toggoling = (id) => {
+    managSpiner(true)
+    if(id === "all-card-btn"){
+        creatCard(allIssues)
+        OpenBtn.classList.remove(...colorBtn)
+        closedBtn.classList.remove(...colorBtn)
+        allBtn.classList.add(...colorBtn)
+
+    } else if (id === "Open-card-btn"){
+        const openIssues = allIssues.filter(issue => issue.status === "open")
+        creatCard(openIssues)
+        allBtn.classList.remove(...colorBtn)
+        closedBtn.classList.remove(...colorBtn)
+        OpenBtn.classList.add(...colorBtn)
+
+    } else if (id === "close-card-btn"){
+        const closedIssues = allIssues.filter(issue => issue.status === "closed")
+        creatCard(closedIssues)
+        allBtn.classList.remove(...colorBtn)
+        OpenBtn.classList.remove(...colorBtn)
+        closedBtn.classList.add(...colorBtn)
+    }
+}
+
+
 const creatLabels = (arr) => {
     const labelStyle = {
         bug: {
@@ -38,24 +91,78 @@ const creatLabels = (arr) => {
 return creatLabBtn.join(" ")
 }
 
-
-const singleIssue = (id) => {
+const priorityColor = (cards) => {
+    let priorityClass = "";
+        if(cards.priority === "high"){
+            priorityClass = "text-red-500 bg-red-100"
+        } else if (cards.priority === "medium"){
+            priorityClass = "text-amber-600 bg-amber-100"
+        } else if (cards.priority === "low"){
+            priorityClass = "text-gray-500 bg-gray-100"
+        }
+    return priorityClass;
+}
+const singleIssue = async (id) => {
     const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`
-    fetch(url)
-        .then((res) => res.json())
-        .then((data) => {
-            console.log(data.data)
-        })
+    const res = await fetch(url);
+    const details = await res.json();
+    cardDetails(details.data)
+}
+const cardDetails = (details) => {
+    let statusColor = "";
+    if(details.status === "open"){
+        statusColor = "text-white bg-green-500"
+    } else if(details.status === "closed"){
+        statusColor = "text-white bg-purple-500"
+    }
+
+    const detailsBox = document.getElementById("details-container")
+    detailsBox.innerHTML = `
+    <div class="space-y-2">
+            <h1 class="text-2xl font-bold">${details.title}</h1>
+        <div class="flex items-center gap-3">
+            <button class="text-sm ${statusColor} rounded-full py-1.5 px-3
+             font-medium ">${details.status}</button>
+            <div class="flex gap-1 text-[#64748B] text-sm items-center"><div class="size-1 rounded-full bg-[#64748B]"></div>  <p>${details.status}</p> by <p>${details.assignee}</p> <div class="size-1 rounded-full bg-[#64748B]"></div> <p>${details.updatedAt}</p></>
+            </div>
+        </div>
+        </div>
+        <div class="">
+            ${creatLabels(details.labels)}
+        </div>
+        <p class="text-[#64748B]">${details.description}</p>
+        <div class="flex items-center p-4">
+            <div class="flex-1 space-y-2">
+                <h1 class="text-[#64748B]">Assignee:</h1>
+                <p class="font-semibold">${details.author}</p>
+            </div>
+            <div class="flex-1 space-y-2">
+                <h1 class="text-[#64748B]">Priority</h1>
+                <button class=" text-sm py-1 w-20 ${priorityColor(details)} uppercase rounded-full font-medium">${details.priority}</button>
+            </div>
+        </div>
+    <div class="modal-action">
+      <form method="dialog">
+        <!-- if there is a button in form, it will close the modal -->
+        <button class="btn btn-primary">Close</button>
+      </form>
+    </div>
+    </div>
+    `
+    document.getElementById("my_modal_5").showModal()
+   
 }
 
 const allIssuesCard = () => {
+    managSpiner(true)
     const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues`
     fetch(url)
         .then((res) => res.json())
         .then((data) => {
-            console.log(data.data)
+            allIssues = data.data
             creatCard(data.data)
         })
+        
 }
 allIssuesCard()
 
@@ -66,20 +173,12 @@ const creatCard = (cards) => {
      allCard.innerHTML = "";
 
      cards.forEach(card => {
-        let priorityClass = "";
-        if(card.priority === "high"){
-            priorityClass = "text-red-500 bg-red-100"
-        } else if (card.priority === "medium"){
-            priorityClass = "text-amber-600 bg-amber-100"
-        } else if (card.priority === "low"){
-            priorityClass = "text-gray-500 bg-gray-100"
-        }
-
+        
         let openCloseImg = "";
         if(card.status === "open"){
             openCloseImg = "Open-Status.png"
         } else if (card.status === "closed"){
-            openCloseImg = "Closed- Status .png"
+            openCloseImg = "closed-card.png"
         }
 
         const div = document.createElement("div")
@@ -92,12 +191,12 @@ const creatCard = (cards) => {
         }
         div.classList.add("bg-white", "rounded-lg", "shadow-md")
         
-
+ 
         div.innerHTML = `
         <div class="p-4 space-y-2.5 ">
             <div class="flex justify-between items-center">
             <img src="./assets/${openCloseImg}" alt="">
-            <button id="priority" class="py-1 w-20 ${priorityClass}  text-sm uppercase rounded-full font-medium">${card.priority}</button>
+            <button id="priority" class="py-1 w-20 ${priorityColor(card)} text-sm uppercase rounded-full font-medium">${card.priority}</button>
         </div>
         <h1 class=" font-semibold">${card.title}</h1>
         <p class="text-sm text-[#64748B]">${card.description}</p>
@@ -111,10 +210,14 @@ const creatCard = (cards) => {
             <p class="text-sm">${card.updatedAt}</p>
         </div>
         `
+        
         div.addEventListener("click", ()=> {
             singleIssue(card.id)
         })
         allCard.appendChild(div)
+        
      })
+     count()
+     managSpiner(false)
 }
 

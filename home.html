@@ -58,17 +58,17 @@
     <!-- section-toggle-button -->
     <section class="pt-20 pb-5 ">
         <div class="flex gap-3 p-6 container mx-auto bg-white rounded-lg shadow-lg ">
-           <button onclick="allIssuesCard('all-card-btn')" id="all-card-btn" class="btn w-25">All</button> 
-           <button class="btn w-25">Open</button> 
-           <button class="btn w-25">Closed</button> 
+           <button onclick="toggoling('all-card-btn')" id="all-card-btn" class="btn w-25">All</button> 
+           <button onclick="toggoling('Open-card-btn')" id="Open-card-btn" class="btn w-25">Open</button> 
+           <button onclick="toggoling('close-card-btn')" id="close-card-btn" class="btn w-25">Closed</button> 
         </div>
     </section>
-    <section class="container mx-auto pb-10">
+    <section class="container mx-auto pb-0.5">
         <div class="flex justify-between py-4 px-4 rounded-lg bg-white shadow-lg">
             <div class="flex flex-1 gap-3">
                 <img class="p-2 bg-[#A855F750] rounded-full " src="./assets/Aperture.png" alt="">
                 <div>
-                    <h1 class="text-xl font-semibold"><span>0</span> Issues</h1>
+                    <h1 class="text-xl font-semibold"><span id="card-count">0</span> Issues</h1>
                     <p class="text-[#64748B]">Track and manage your project issues</p>
                 </div>
             </div>
@@ -87,12 +87,27 @@
 
     <!-- all-card-section -->
 
-    <section id="all-card" class="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5">
-      
+    <section class="container mx-auto px-3 bg-gray-50 py-10 rounded-lg shadow-md">
+        
+        <section id="spiner" class="flex justify-center items-center hidden">
+            <span class="loading loading-spinner loading-md"></span>
+        </section>
 
+        <section id="all-card" class=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5 ">
+      
+        </section>
     </section>
 
-    
+    <!-- modal -->
+
+    <!-- Open the modal using ID.showModal() method -->
+<!-- <button class="btn" onclick="my_modal_5.showModal()">open modal</button> -->
+<dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+  <div class="modal-box max-w-none max-h-none w-[700px]">
+    <div id="details-container" class="p-4 space-y-6">
+        
+  </div>
+</dialog>
 
    </main>
    <script src="./home.js"></script>
