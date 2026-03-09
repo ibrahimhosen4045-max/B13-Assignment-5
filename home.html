@@ -24,7 +24,7 @@
 <body class="bg-gray-100">
    <header>
     <div class="navbar bg-base-100 shadow-sm">
-    <div class="flex justify-between w-11/12 mx-auto">
+    <div class="flex flex-col sm:flex-row justify-between items-center gap-3 container mx-auto">
         <div class="flex-1">
             <a class="btn btn-ghost text-2xl">
             <img class="w-9" src="./assets/github-logo.png" alt="">
@@ -56,7 +56,7 @@
 
    <main class=""> 
     <!-- section-toggle-button -->
-    <section class="pt-20 pb-5 ">
+    <section class="pt-10 md:pt-15 pb-5 ">
         <div class="flex gap-3 p-6 container mx-auto bg-white rounded-lg shadow-lg ">
            <button onclick="toggoling('all-card-btn')" id="all-card-btn" class="btn w-25">All</button> 
            <button onclick="toggoling('Open-card-btn')" id="Open-card-btn" class="btn w-25">Open</button> 
@@ -64,15 +64,15 @@
         </div>
     </section>
     <section class="container mx-auto pb-0.5">
-        <div class="flex justify-between py-4 px-4 rounded-lg bg-white shadow-lg">
-            <div class="flex flex-1 gap-3">
+        <div class="flex justify-between  py-4 px-4 rounded-lg bg-white shadow-lg">
+            <div class="flex flex-1 gap-3 items-center">
                 <img class="p-2 bg-[#A855F750] rounded-full " src="./assets/Aperture.png" alt="">
                 <div>
                     <h1 class="text-xl font-semibold"><span id="card-count">0</span> Issues</h1>
                     <p class="text-[#64748B]">Track and manage your project issues</p>
                 </div>
             </div>
-            <div class="flex flex-1 items-center justify-end gap-5">
+            <div class="flex md:flex-1 pl-4 md:pl-0 items-center justify-end gap-3">
                 <button class="font-medium flex items-center gap-2">
                     <div class="size-4 bg-green-500 rounded-full"></div>
                     <span>Open</span>
@@ -100,10 +100,8 @@
 
     <!-- modal -->
 
-    <!-- Open the modal using ID.showModal() method -->
-<!-- <button class="btn" onclick="my_modal_5.showModal()">open modal</button> -->
 <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
-  <div class="modal-box max-w-none max-h-none w-[700px]">
+  <div class="modal-box max-w-none max-h-none sm:w-[700px]">
     <div id="details-container" class="p-4 space-y-6">
         
   </div>

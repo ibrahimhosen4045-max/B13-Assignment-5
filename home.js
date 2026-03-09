@@ -27,32 +27,36 @@ const count = () => {
 let colorBtn = ["btn-primary", "text-white"]
 allBtn.classList.add(...colorBtn)
 
+const removeBtnColor = (id) => {
+    const color = document.getElementById(id)
+    OpenBtn.classList.remove(...colorBtn)
+    closedBtn.classList.remove(...colorBtn)
+    allBtn.classList.remove(...colorBtn)
+    color.classList.add(...colorBtn)
+}
+
 
 const toggoling = (id) => {
     managSpiner(true)
     setTimeout(()=>{
         if(id === "all-card-btn"){
         creatCard(allIssues)
-        OpenBtn.classList.remove(...colorBtn)
-        closedBtn.classList.remove(...colorBtn)
-        allBtn.classList.add(...colorBtn)
+        removeBtnColor("all-card-btn")
         
 
     } else if (id === "Open-card-btn"){
         const openIssues = allIssues.filter(issue => issue.status === "open")
         creatCard(openIssues)
-        allBtn.classList.remove(...colorBtn)
-        closedBtn.classList.remove(...colorBtn)
-        OpenBtn.classList.add(...colorBtn)
+        removeBtnColor("Open-card-btn")
+        
 
     } else if (id === "close-card-btn"){
         const closedIssues = allIssues.filter(issue => issue.status === "closed")
         creatCard(closedIssues)
-        allBtn.classList.remove(...colorBtn)
-        OpenBtn.classList.remove(...colorBtn)
-        closedBtn.classList.add(...colorBtn)
+        removeBtnColor("close-card-btn")
+        
     }
-    },2000)
+    },100)
 }
 
 
@@ -136,7 +140,7 @@ const cardDetails = (details) => {
             ${creatLabels(details.labels)}
         </div>
         <p class="text-[#64748B]">${details.description}</p>
-        <div class="flex items-center p-4">
+        <div class="flex items-center p-4 bg-gray-100 rounded-lg">
             <div class="flex-1 space-y-2">
                 <h1 class="text-[#64748B]">Assignee:</h1>
                 <p class="font-semibold">${details.author}</p>
@@ -231,7 +235,6 @@ const creatCard = (cards) => {
 document.getElementById("search-btn").addEventListener("click", ()=>{
     const inputValue = document.getElementById("search-value")
     const value = inputValue.value.trim().toLowerCase();
-    managSpiner(true)
     fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
         .then((res) => res.json())
         .then((data) => {
@@ -239,6 +242,5 @@ document.getElementById("search-btn").addEventListener("click", ()=>{
             const allFilter = filterCard.filter(card => card.title.toLowerCase().includes(value))
             creatCard(allFilter)
         })
-    
     
 })
