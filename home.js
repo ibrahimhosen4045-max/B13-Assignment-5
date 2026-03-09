@@ -132,7 +132,7 @@ const cardDetails = (details) => {
         <div class="flex items-center gap-3">
             <button class="text-sm ${statusColor} rounded-full py-1.5 px-3
              font-medium ">${details.status}</button>
-            <div class="flex gap-1 text-[#64748B] text-sm items-center"><div class="size-1 rounded-full bg-[#64748B]"></div>  <p>${details.status}</p> by <p>${details.assignee}</p> <div class="size-1 rounded-full bg-[#64748B]"></div> <p>${details.updatedAt}</p></>
+            <div class="flex gap-1 text-[#64748B] text-sm items-center"><div class="size-1 rounded-full bg-[#64748B]"></div>  <p>${details.status}</p> by <p>${details.assignee}</p> <div class="size-1 rounded-full bg-[#64748B]"></div> <p>${details.createdAt}</p></>
             </div>
         </div>
         </div>
@@ -217,8 +217,8 @@ const creatCard = (cards) => {
         </div>
         <hr class="text-gray-300 ">
         <div class=" p-4 text-[#64748B]">
-            <p class="">#1by ${card.author}</p>
-            <p class="text-sm">${card.updatedAt}</p>
+            <p class="">#${card.id}by ${card.author}</p>
+            <p class="text-sm">${card.createdAt}</p>
         </div>
         `
         
@@ -232,15 +232,19 @@ const creatCard = (cards) => {
      managSpiner(false)
 }
 
-document.getElementById("search-btn").addEventListener("click", ()=>{
-    const inputValue = document.getElementById("search-value")
+
+const inputValue = document.getElementById("search-value")
+inputValue.addEventListener("input", () => {
     const value = inputValue.value.trim().toLowerCase();
-    fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
-        .then((res) => res.json())
-        .then((data) => {
-            const filterCard = data.data;
-            const allFilter = filterCard.filter(card => card.title.toLowerCase().includes(value))
-            creatCard(allFilter)
-        })
     
+    fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${value}`)
+        .then((res)=> res.json())
+        .then((data) => {
+            if(value !== ""){
+                creatCard(data.data)
+            } else {
+                creatCard(allIssues)
+            }
+        })
 })
+

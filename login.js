@@ -1,6 +1,6 @@
 const value = (id) => {
     const inputUserName = document.getElementById(id)
-    const inputUserNameVal = inputUserName.value;
+    const inputUserNameVal = inputUserName.value.trim();
     return inputUserNameVal;
 }
 
