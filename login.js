@@ -20,7 +20,7 @@ document.getElementById("login-button").addEventListener("click", ()=>{
 
    if(userName && passWord){
     alert("Login Successfull")
-    window.location.assign("./home.html")
+    window.location.assign("home.html")
    } else {
     alert("Invalid Login")
    }
