@@ -143,7 +143,7 @@ const cardDetails = (details) => {
         <div class="flex items-center p-4 bg-gray-100 rounded-lg">
             <div class="flex-1 space-y-2">
                 <h1 class="text-[#64748B]">Assignee:</h1>
-                <p class="font-semibold">${details.author}</p>
+                <p class="font-semibold">${details.assignee ? details.assignee : "Unassign"}</p>
             </div>
             <div class="flex-1 space-y-2">
                 <h1 class="text-[#64748B]">Priority</h1>
@@ -236,7 +236,7 @@ const creatCard = (cards) => {
 const inputValue = document.getElementById("search-value")
 inputValue.addEventListener("input", () => {
     const value = inputValue.value.trim().toLowerCase();
-    
+    managSpiner(true)
     fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${value}`)
         .then((res)=> res.json())
         .then((data) => {
