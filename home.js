@@ -36,6 +36,7 @@ const toggoling = (id) => {
         OpenBtn.classList.remove(...colorBtn)
         closedBtn.classList.remove(...colorBtn)
         allBtn.classList.add(...colorBtn)
+        
 
     } else if (id === "Open-card-btn"){
         const openIssues = allIssues.filter(issue => issue.status === "open")
@@ -51,7 +52,7 @@ const toggoling = (id) => {
         OpenBtn.classList.remove(...colorBtn)
         closedBtn.classList.add(...colorBtn)
     }
-    }, 200)
+    },2000)
 }
 
 
@@ -227,3 +228,17 @@ const creatCard = (cards) => {
      managSpiner(false)
 }
 
+document.getElementById("search-btn").addEventListener("click", ()=>{
+    const inputValue = document.getElementById("search-value")
+    const value = inputValue.value.trim().toLowerCase();
+    managSpiner(true)
+    fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
+        .then((res) => res.json())
+        .then((data) => {
+            const filterCard = data.data;
+            const allFilter = filterCard.filter(card => card.title.toLowerCase().includes(value))
+            creatCard(allFilter)
+        })
+    
+    
+})
